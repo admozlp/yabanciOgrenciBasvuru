@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Kırşehir Ahi Evran University - Update Appllication</title>
+			
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+			<script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
+	<div th:replace="fragments :: ust-menu"></div>	
+	<style>
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+}
+body{
+		background-image: linear-gradient(to right, #69c28e, #c8d461);
+	
+}
+/*Background color*/
+#grad1 {
+    background-color:  #9C27B0;
+	background-image: linear-gradient(to right, #69c28e, #c8d461);
+	    height: 100vh;
+}
+
+/*form styles*/
+#msform {
+    text-align: center;
+    position: relative;
+    margin-top: 20px;
+}
+
+#msform fieldset .form-card {
+    background: white;
+    border: 0 none;
+    border-radius: 0px;
+    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+    padding: 20px 40px 30px 40px;
+    box-sizing: border-box;
+    width: 94%;
+    margin: 0 3% 20px 3%;
+
+    /*stacking fieldsets above each other*/
+    position: relative;
+}
+
+#msform fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 20px;
+
+    /*stacking fieldsets above each other*/
+    position: relative;
+}
+
+/*Hide all except first fieldset*/
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+
+#msform fieldset .form-card {
+    text-align: left;
+    color: #9E9E9E;
+}
+
+button{
+	    padding: 0px 8px 4px 8px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0px;
+    margin-bottom: 25px;
+    margin-top: 2px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+#msform input, #msform textarea {
+    padding: 0px 8px 4px 8px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0px;
+    margin-bottom: 25px;
+    margin-top: 2px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+#msform input:focus, #msform textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: none;
+    font-weight: bold;
+    border-bottom: 2px solid skyblue;
+    outline-width: 0;
+}
+
+/*Blue Buttons*/
+#msform .action-button {
+    width: 100px;
+    background: skyblue;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+button{
+	    width: 100px;
+    background: skyblue;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+button:hover, button:focus{
+	    box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue;	
+}
+
+#msform .action-button:hover, #msform .action-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue;
+}
+
+/*Previous Buttons*/
+#msform .action-button-previous {
+    width: 100px;
+    background: #616161;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+#msform .action-button-previous:hover, #msform .action-button-previous:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #616161;
+}
+
+/*Dropdown List Exp Date*/
+select.list-dt {
+    border: none;
+    outline: 0;
+    border-bottom: 1px solid #ccc;
+    padding: 2px 5px 3px 5px;
+    margin: 2px;
+}
+
+select.list-dt:focus {
+    border-bottom: 2px solid skyblue;
+}
+
+/*The background card*/
+.card {
+    z-index: 0;
+    border: none;
+    border-radius: 0.5rem;
+    position: relative;
+}
+
+/*FieldSet headings*/
+.fs-title {
+    font-size: 25px;
+    color: #2C3E50;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: left;
+}
+
+/*progressbar*/
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: lightgrey;
+}
+
+#progressbar .active {
+    color: #000000;
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 12px;
+    width: 20%;
+    float: left;
+    position: relative;
+}
+
+/*Icons in the ProgressBar*/
+#progressbar #account:before {
+    font-family: FontAwesome;
+    content: "\f023";
+}
+
+#progressbar #personal:before {
+    font-family: FontAwesome;
+    content: "\f007";
+}
+
+#progressbar #payment:before {
+    font-family: FontAwesome;
+    content: "\f09d";
+}
+
+#progressbar #confirm:before {
+    font-family: FontAwesome;
+    content: "\f00c";
+}
+
+/*ProgressBar before any progress*/
+#progressbar li:before {
+    width: 50px;
+    height: 50px;
+    line-height: 45px;
+    display: block;
+    font-size: 18px;
+    color: #ffffff;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    padding: 2px;
+}
+
+/*ProgressBar connectors*/
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: lightgray;
+    position: absolute;
+    left: 0;
+    top: 25px;
+    z-index: -1;
+}
+
+select{
+	margin-top:5px;
+}
+
+/*Color number of the step and the connector before it*/
+#progressbar li.active:before, #progressbar li.active:after {
+    background: skyblue;
+}
+
+/*Imaged Radio Buttons*/
+.radio-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.radio {
+    display:inline-block;
+    width: 204;
+    height: 104;
+    border-radius: 0;
+    background: lightblue;
+    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    cursor:pointer;
+    margin: 8px 2px; 
+}
+
+.radio:hover {
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.radio.selected {
+    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+/*Fit image in bootstrap div*/
+.fit-image{
+    width: 100%;
+    object-fit: cover;
+}
+		
+	</style>
+
+	<script type="text/javascript">	
+	$(document).ready(function(){
+	    
+		var current_fs, next_fs, previous_fs; //fieldsets
+		var opacity;
+
+		$(".next").click(function(){
+		    current_fs = $(this).parent();
+		    next_fs = $(this).parent().next();
+		    
+		    var requiredFields = current_fs.find('[required]');
+		    var allFieldsFilled = true;
+
+		    // Remove previous error messages
+		    current_fs.find('p.error-message').remove();
+
+		    requiredFields.each(function() {
+		        if ($(this).is('select')) {
+		            // For select elements
+		            if ($(this).val() === '' || $(this).val() === null) {
+		                allFieldsFilled = false;
+		                $(this).after("<p class='error-message' style='color: red;'>This field is required.</p>");
+		                return false; // Exit the loop
+		            }
+		        } else {
+		            // For input elements
+		            if ($(this).val().trim() === '') {
+		                allFieldsFilled = false;
+		                $(this).after("<p class='error-message' style='color: red;'>This field is required.</p>");
+		                return false; // Exit the loop
+		            }
+		        }
+		    });
+
+		    if (!allFieldsFilled) {
+		        return; // Don't proceed to the next step
+		    }
+
+		    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+		    
+		    next_fs.show();
+		    current_fs.animate({opacity: 0}, {
+		        step: function(now) {
+		            opacity = 1 - now;
+
+		            current_fs.css({
+		                'display': 'none',
+		                'position': 'relative'
+		            });
+		            next_fs.css({'opacity': opacity});
+		        }, 
+		        duration: 600
+		    });
+		});
+
+
+		$(".previous").click(function(){
+		    
+		    current_fs = $(this).parent();
+		    previous_fs = $(this).parent().prev();
+		    
+		    //Remove class active
+		    $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+		    
+		    //show the previous fieldset
+		    previous_fs.show();
+
+		    //hide the current fieldset with style
+		    current_fs.animate({opacity: 0}, {
+		        step: function(now) {
+		            // for making fielset appear animation
+		            opacity = 1 - now;
+
+		            current_fs.css({
+		                'display': 'none',
+		                'position': 'relative'
+		            });
+		            previous_fs.css({'opacity': opacity});
+		        }, 
+		        duration: 600
+		    });
+		});
+
+		$('.radio-group .radio').click(function(){
+		    $(this).parent().find('.radio').removeClass('selected');
+		    $(this).addClass('selected');
+		});
+
+		$(".submit").click(function(){
+		    return false;
+		})
+		    
+		});
+	</script>
+
+</head>
+<body>
+<div class="container-fluid" id="grad1">
+    <div class="row justify-content-center mt-0">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                <h2><strong>Update Application Form</strong></h2>
+                <div class="alert alert-danger"  th:if="${error}">
+						Please try again with correct information to update your application.
+				</div>
+				<div  style="font-style:12px;" class="alert alert-success"  th:if="${success}">
+						Application has been successfully updated.
+				</div>
+                <div class="row">
+                    <div class="col-md-12 mx-0">
+                        <form id="msform"    th:action="@{/updateapp}"  method="post" th:object="${basvuru}"   thif="${basvuru != null}"   enctype="multipart/form-data">
+                            <!-- progressbar -->
+                            <ul id="progressbar">
+                                <li class="active" id="account"><strong>Personal</strong></li>
+                                <li id="personal"><strong>Contact</strong></li>
+                                <li id="payment"><strong>High school</strong></li>
+                                <li id="confirm"><strong> Preferred Programs</strong></li>
+                                <li id="confirm"><strong>Files</strong></li>
+                            </ul> 
+                            <!-- fieldsets -->
+                            <fieldset>
+                                <div class="form-card row">
+                                    <h2 class="fs-title">Personal information of the candidate</h2>
+								        <div class="col">
+												<input  th:field="*{id}"  type="text"  style="display:none">
+								                <label for="field1">Name*</label>
+								                <input  th:field="*{ad}"  type="text"  id="field1" class="form-control" placeholder="Ad"  required="required">
+								                <label for="field2">Mother name*</label>
+								                <input th:field="*{anneAdi}"  type="text" id="field2" class="form-control" placeholder="Anne adı" required>
+								                <label for="field3">Passport number</label>
+								                <input  th:field="*{pasaportNo}"   type="text" id="field3" class="form-control" placeholder="Pasaport numarası">
+								                <label for="field4">Date of birth*</label>								                
+													<input th:field="*{tarihDogum}" max="31-12-2022" type="date" id="field4" class="form-control" required
+											       th:value="${dogumTarihi != null ? #temporals.format(basvuru.getDogumTarihi, 'dd.MM.yyyy') : ''}">
+												<p id="warningDogum" style="color: red;"></p>
+								                <label for="field5">Nationality*</label>
+												<select name="ulkeId" class="form-select form-control" required>
+										            <option value="" selected disabled>Country</option>
+										            <option th:each="ulke : ${ulkeler}" th:value="${ulke.getId()}" th:text="${ulke.getIngilizceAd()}"
+										       		th:selected="${ulke.getIngilizceAd() == basvuru.getUlke().getIngilizceAd()}"
+										            ></option>
+										        </select>
+								                <label for="field6">Other nationality</label>
+								                <select name="digerUlkeId" class="form-select form-control">
+										            <option value="" selected disabled>Country</option>
+													<option th:each="ulke : ${ulkeler}" th:value="${ulke.getId()}" th:text="${ulke.getIngilizceAd()}"
+													        th:selected="${basvuru.getDigerUlke()?.getIngilizceAd()?.equals(ulke.getIngilizceAd())}">
+													</option>
+										        </select>
+								            </div>
+								            <div class="col">
+								                <label for="field7">Surname*</label>
+								                <input th:field="*{soyad}"  type="text" id="field7" class="form-control"  placeholder="Soyad"  required>
+								                <label for="field8">Father name*</label>
+								                <input th:field="*{babaAdi}"  type="text" id="field8" class="form-control" placeholder="Baba adı" required>
+								                <label for="field9">Place of birth*</label>
+								                <input th:field="*{dogumYeri}" type="text" id="field9" class="form-control" placeholder="Doğum yeri" required>
+								                <label for="field10">Gender*</label>
+								                <select name="gender"  id="cinsiyet"  class="form-select form-control" required>
+			                        				<option  value="Erkek" th:selected="${basvuru.isCinsiyet}">Male</option>
+			                        				<option   value="Bayan"  th:selected="${!basvuru.isCinsiyet}">Female</option>
+			                    				</select>
+								                <label for="field11">Citizenship type</label>
+								                <input th:field="*{vatandaslikSekli}" type="text" id="field11" class="form-control" placeholder="Vatandaşlık tipi"  >
+								                <label for="field12">Other type of citizenship</label>
+								                <input th:field="*{digerVatandaslikSekli}"  type="text" id="field12" class="form-control" placeholder="Diğer vatandaşlık tipi">
+								           </div>
+                                </div>
+                                <input type="button" name="next" class="next action-button" value="Next Step"/>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-card row">
+                                    <h2 class="fs-title">Personal Information</h2>
+											<div class="col">
+											    <label for="field13">Telephone*</label>
+											    <input th:field="*{telefonNo}"  type="text" id="rakamInput" class="form-control"  maxlength="15"  placeholder="Telephone"  required>
+											    <label for="field14">Adress*</label>
+											    <input th:field="*{adres}"  type="text" id="field14" class="form-control"  placeholder="Adress"  required>
+			
+											</div>
+											<div class="col">
+												<label for="field15"  >Country*</label>
+											   	<select name="yasadigiUlkeId"   id="countrySelect" class="form-select form-control" required>
+										            <option value="" selected disabled>Country</option>
+	            									<option th:each="ulke : ${ulkeler}" th:value="${ulke.getId()}" th:text="${ulke.getIngilizceAd()}"
+										       		th:selected="${ulke.getIngilizceAd() == basvuru.getYasadigiUllke().getIngilizceAd()}"
+										            ></option>										        </select>
+											    <label for="field16">The City You Live In*</label>
+												<input th:field="*{yasadigiSehirText}" type="text" id="field11" class="form-control" placeholder="Yaşsadığı şehir"  >
+											</div>
+                                </div>
+                                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                                <input type="button" name="next" class="next action-button" value="Next Step"/>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-card  row">
+                                            <h2 class="fs-title">Lise Bilgileri / High school (lycee) information</h2>                                
+											<div  class="col">
+											    <label for="field18">Graduated lycee*</label>
+											    <input th:field="*{mezunOlunanLise}"   type="text" class="form-control" id="field18"  placeholder="Mezun olunan lise" required>
+											    <label for="field19">Country of the lycee*</label>
+											   	<select name="liseninUlkesiId"  id="liseCountrySelect" class="form-select form-control" required>
+										            <option value="" selected disabled>Country</option>
+										            <option th:each="ulke : ${ulkeler}" th:value="${ulke.getId()}" th:text="${ulke.getIngilizceAd()}"  
+										            	th:selected="${ulke.getIngilizceAd() == basvuru.getLiseninUlkesi().getIngilizceAd()}"
+										            ></option>
+										        </select>
+										        <label for="field20">City of the lycee*</label>
+												<input th:field="*{liseSehirText}"   type="text" class="form-control" id="field18"  placeholder="Lisenin şehri" >
+										        
+										        <label for="field21">Total duration of lycee education*</label>
+											    <input th:field="*{liseEgitimSuresi}"  type="number" class="form-control" id="field21" placeholder="Lisenin toplam eğitim süresi" required>
+							
+											    
+											    <label for="field22">Field of study</label>
+											    <input th:field="*{liseAlan}"   type="text" class="form-control" id="field22"  placeholder="Lisedeki alanı">
+											</div>
+											<div class="col">
+											    <label for="field23">Start date of lycee*</label>
+											    <input th:field="*{baslangicLise}" max="31-12-2022" type="date"  class="form-control" id="field23"  required>
+											 	<p id="warningLiseBaslangic" style="color: red;"></p>
+											    
+											    <label for="field24">End date of lycee*</label>
+											    <input th:field="*{bitisLise}" max="31-12-2022" type="date" class="form-control" id="field24"  required>
+											    <p id="warningLiseBitis" style="color: red;"></p>
+											    <label for="field25">Grading system</label>
+											    <input th:field="*{notSistemi}"  type="text" class="form-control" id="field25"  placeholder="Not sistemi">
+											    <label for="field26">Grade point avarage</label>
+											    <input th:field="*{liseNotOrtalamasi}"  type="text" class="form-control" maxlength="7" id="liseort" placeholder="Lise not ortalamasi"  required>
+											    <label for="field27">Result of the TR YÖS exam</label>
+											    <input th:field="*{yosPuani}"  type="text" class="form-control" maxlength="7" id="yospuan" placeholder="YÖS puanı">				
+											</div>
+                                </div>
+                                                                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                                <input type="button" name="next" class="next action-button" value="Next Step"/>
+                                <!-- <input type="button" name="make_payment" class="next action-button" value="Confirm"/> -->
+                            </fieldset>
+                              <fieldset>
+                                <div class="form-card row">
+                                    <h2 class="fs-title text-center">Tercih Edilen Programlar / Preferred Programs</h2>
+											<div class="col">
+											    <label for="field28">1.First choice*</label>
+											    <select name="secim1"  class="form-select form-control"   required>
+										            <option th:text="${fakulteler.get(0).getIngilizceAd()}" selected disabled>choice</option>
+										           	<option th:each="program : ${programlar}"  th:value="${program.getId()}"  th:if="${fakulteler.get(0).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[0] == program.getIngilizceAd()}"></option>										            
+										            <option th:text="${fakulteler.get(1).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(1).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[0] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(2).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(2).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[0] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(3).getIngilizceAd()}"  disabled>choice</option>
+										         	<option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(3).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[0] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(4).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(4).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[0] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(5).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(5).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[0] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(6).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(6).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[0] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(7).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(7).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[0] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(8).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(8).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[0] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(9).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(9).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[0] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(10).getIngilizceAd()}"  disabled>choice</option>										            
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(10).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[0] == program.getIngilizceAd()}"></option>
+										        </select>
+											    <label for="field29">2.Second choice*</label>
+											   		<select name="secim2"  class="form-select form-control"  required>
+										            <option th:text="${fakulteler.get(0).getIngilizceAd()}" selected disabled>choice</option>
+										           	<option th:each="program : ${programlar}"  th:value="${program.getId()}"  th:if="${fakulteler.get(0).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[1] == program.getIngilizceAd()}"></option>										            
+										            <option th:text="${fakulteler.get(1).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(1).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[1] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(2).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(2).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[1] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(3).getIngilizceAd()}"  disabled>choice</option>
+										         	<option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(3).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[1] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(4).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(4).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[1] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(5).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(5).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[1] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(6).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(6).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[1] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(7).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(7).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[1] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(8).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(8).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[1] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(9).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(9).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[1] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(10).getIngilizceAd()}"  disabled>choice</option>										            
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(10).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[1] == program.getIngilizceAd()}"></option>
+										        </select>
+											    <label for="field30">3.Third choice*</label>
+											    <select name="secim3"  class="form-select form-control"  required>
+										            <option th:text="${fakulteler.get(0).getIngilizceAd()}" selected disabled>choice</option>
+										           	<option th:each="program : ${programlar}"  th:value="${program.getId()}"  th:if="${fakulteler.get(0).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[2] == program.getIngilizceAd()}"></option>										            
+										            <option th:text="${fakulteler.get(1).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(1).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[2] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(2).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(2).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[2] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(3).getIngilizceAd()}"  disabled>choice</option>
+										         	<option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(3).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[2] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(4).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(4).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[2] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(5).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(5).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[2] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(6).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(6).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[2] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(7).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(7).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[2] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(8).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(8).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[2] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(9).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(9).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[2] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(10).getIngilizceAd()}"  disabled>choice</option>										            
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(10).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler[2] == program.getIngilizceAd()}"></option>
+										        </select>
+											    <label for="field31">4.Fourth choice</label>
+												<select name="secim4" class="form-select form-control"  >
+				            						<option th:text="${fakulteler.get(0).getIngilizceAd()}" selected disabled>choice</option>
+										           	<option th:each="program : ${programlar}"  th:value="${program.getId()}"  th:if="${fakulteler.get(0).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 3 and tercihler[3] == program.getIngilizceAd()}"></option>										            
+										            <option th:text="${fakulteler.get(1).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(1).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 3 and tercihler[3] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(2).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(2).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 3 and tercihler[3] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(3).getIngilizceAd()}"  disabled>choice</option>
+										         	<option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(3).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 3 and tercihler[3] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(4).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(4).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 3 and tercihler[3] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(5).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(5).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 3 and tercihler[3] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(6).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(6).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 3 and tercihler[3] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(7).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(7).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 3 and tercihler[3] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(8).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(8).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 3 and tercihler[3] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(9).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(9).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 3 and tercihler[3] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(10).getIngilizceAd()}"  disabled>choice</option>										            
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(10).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 3 and tercihler[3] == program.getIngilizceAd()}"></option>
+										        </select>
+											    <label for="field32">5.Fifth choice</label>
+											    <select name="secim5" class="form-select form-control"  >
+				            						<option th:text="${fakulteler.get(0).getIngilizceAd()}" selected disabled>choice</option>
+										           	<option th:each="program : ${programlar}"  th:value="${program.getId()}"  th:if="${fakulteler.get(0).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 4 and tercihler[4] == program.getIngilizceAd()}"></option>										            
+										            <option th:text="${fakulteler.get(1).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(1).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 4 and tercihler[4] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(2).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(2).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 4 and tercihler[4] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(3).getIngilizceAd()}"  disabled>choice</option>
+										         	<option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(3).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 4 and tercihler[4] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(4).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(4).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 4 and tercihler[4] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(5).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(5).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 4 and tercihler[4] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(6).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(6).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 4 and tercihler[4] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(7).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(7).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 4 and tercihler[4] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(8).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(8).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 4 and tercihler[4] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(9).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(9).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 4 and tercihler[4] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(10).getIngilizceAd()}"  disabled>choice</option>										            
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(10).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 4 and tercihler[4] == program.getIngilizceAd()}"></option>
+										        </select>
+											</div>
+											<div class="col">
+											    <label for="field33">6.Sixth choice</label>
+											 	<select name="secim6"   class="form-select form-control"  >
+				            						<option th:text="${fakulteler.get(0).getIngilizceAd()}" selected disabled>choice</option>
+										           	<option th:each="program : ${programlar}"  th:value="${program.getId()}"  th:if="${fakulteler.get(0).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 5 and tercihler[5] == program.getIngilizceAd()}"></option>										            
+										            <option th:text="${fakulteler.get(1).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(1).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 5 and tercihler[5] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(2).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(2).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 5 and tercihler[5] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(3).getIngilizceAd()}"  disabled>choice</option>
+										         	<option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(3).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 5 and tercihler[5] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(4).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(4).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 5 and tercihler[5] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(5).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(5).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 5 and tercihler[5] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(6).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(6).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 5 and tercihler[5] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(7).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(7).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 5 and tercihler[5] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(8).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(8).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 5 and tercihler[5] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(9).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(9).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 5 and tercihler[5] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(10).getIngilizceAd()}"  disabled>choice</option>										            
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(10).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 5 and tercihler[5] == program.getIngilizceAd()}"></option>
+										        </select>
+											    <label for="field34">7.Seventh choice</label>
+											   <select name="secim7"   class="form-select form-control"  >
+				            						<option th:text="${fakulteler.get(0).getIngilizceAd()}" selected disabled>choice</option>
+										           	<option th:each="program : ${programlar}"  th:value="${program.getId()}"  th:if="${fakulteler.get(0).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 6 and tercihler[6] == program.getIngilizceAd()}"></option>										            
+										            <option th:text="${fakulteler.get(1).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(1).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 6 and tercihler[6] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(2).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(2).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 6 and tercihler[6] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(3).getIngilizceAd()}"  disabled>choice</option>
+										         	<option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(3).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 6 and tercihler[6] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(4).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(4).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 6 and tercihler[6] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(5).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(5).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 6 and tercihler[6] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(6).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(6).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 6 and tercihler[6] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(7).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(7).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 6 and tercihler[6] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(8).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(8).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 6 and tercihler[6] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(9).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(9).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 6 and tercihler[6] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(10).getIngilizceAd()}"  disabled>choice</option>										            
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(10).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 6 and tercihler[6] == program.getIngilizceAd()}"></option>
+										        </select>
+											    <label for="field35">8.Eigth choice</label>
+											    <select name="secim8"   class="form-select form-control"  >
+				            						<option th:text="${fakulteler.get(0).getIngilizceAd()}" selected disabled>choice</option>
+										           	<option th:each="program : ${programlar}"  th:value="${program.getId()}"  th:if="${fakulteler.get(0).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 7 and tercihler[7] == program.getIngilizceAd()}"></option>										            
+										            <option th:text="${fakulteler.get(1).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(1).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 7  and tercihler[7] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(2).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(2).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 7 and tercihler[7] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(3).getIngilizceAd()}"  disabled>choice</option>
+										         	<option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(3).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 7 and tercihler[7] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(4).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(4).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 7 and tercihler[7] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(5).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(5).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 7 and tercihler[7] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(6).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(6).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 7 and tercihler[7] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(7).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(7).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 7 and tercihler[7] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(8).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(8).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 7 and tercihler[7] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(9).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(9).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 7 and tercihler[7] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(10).getIngilizceAd()}"  disabled>choice</option>										            
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(10).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 7 and tercihler[7] == program.getIngilizceAd()}"></option>
+										        </select>
+											    <label for="field36">9.Ninth choice</label>
+											   <select name="secim9"  class="form-select form-control"  >
+				            						<option th:text="${fakulteler.get(0).getIngilizceAd()}" selected disabled>choice</option>
+										           	<option th:each="program : ${programlar}"  th:value="${program.getId()}"  th:if="${fakulteler.get(0).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 8 and tercihler[8] == program.getIngilizceAd()}"></option>										            
+										            <option th:text="${fakulteler.get(1).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(1).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 8  and tercihler[8] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(2).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(2).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 8 and tercihler[8] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(3).getIngilizceAd()}"  disabled>choice</option>
+										         	<option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(3).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 8 and tercihler[8] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(4).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(4).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 8 and tercihler[8] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(5).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(5).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 8 and tercihler[8] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(6).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(6).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 8 and tercihler[8] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(7).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(7).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 8 and tercihler[8] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(8).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(8).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 8 and tercihler[8] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(9).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(9).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 8 and tercihler[8] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(10).getIngilizceAd()}"  disabled>choice</option>										            
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(10).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 8 and tercihler[8] == program.getIngilizceAd()}"></option>
+										        </select>
+											    <label for="field37">10.Tenth choice</label>
+											  	<select name="secim10"  class="form-select form-control"  >
+				            						<option th:text="${fakulteler.get(0).getIngilizceAd()}" selected disabled>choice</option>
+										           	<option th:each="program : ${programlar}"  th:value="${program.getId()}"  th:if="${fakulteler.get(0).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 9 and tercihler[9] == program.getIngilizceAd()}"></option>										            
+										            <option th:text="${fakulteler.get(1).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(1).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 9 and tercihler[9] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(2).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(2).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 9 and tercihler[9] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(3).getIngilizceAd()}"  disabled>choice</option>
+										         	<option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(3).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 9 and tercihler[9] == program.getIngilizceAd()}"></option>										            										            
+										            <option th:text="${fakulteler.get(4).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(4).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 9 and tercihler[9] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(5).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(5).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 9 and tercihler[9] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(6).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(6).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 9 and tercihler[9] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(7).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(7).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 9 and tercihler[9] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(8).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(8).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 9 and tercihler[9] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(9).getIngilizceAd()}"  disabled>choice</option>
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(9).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 9 and tercihler[9] == program.getIngilizceAd()}"></option>
+										            <option th:text="${fakulteler.get(10).getIngilizceAd()}"  disabled>choice</option>										            
+										            <option th:each="program : ${programlar}" th:value="${program.getId()}"  th:if="${fakulteler.get(10).getId()} == ${program.getFakulte().getId()}"   th:text="${program.getIngilizceAd()}"  class="choice"   th:selected="${tercihler.size() > 9 and tercihler[9] == program.getIngilizceAd()}"></option>
+										        </select>
+											</div>
+                                </div>
+                                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                                <input type="button" name="next" class="next action-button" value="Next Step"/>
+                            </fieldset>
+                			          <fieldset>
+                                <div class="form-card row">	
+                                    <h2 class="fs-title text-center">Files</h2>
+									<div class="col">
+											<label >Photo*</label>				
+											<input th:field="*{foto}"  id="fileSelect"   type="file" class="form-control" name="foto" accept=".jpg,.png,.jpeg"  required/>
+											<label >ID front side*</label>				
+											<input th:field="*{kimlikOn}"  id="fileSelect" type="file" class="form-control" name="foto" accept=".jpg,.png,.jpeg"  />
+											<label >ID back side</label>				
+											<input th:field="*{kimlikArka}"  id="fileSelect" type="file" class="form-control" name="foto" accept=".jpg,.png,.jpeg" />
+											<label >Passport  front side</label>				
+											<input th:field="*{pasaportOn}"  id="fileSelect" type="file" class="form-control" name="foto" accept=".jpg,.png,.jpeg" />
+											<label >ATM receipt</label>				
+											<input th:field="*{dekont}"  id="fileSelect" type="file" class="form-control" name="foto" accept=".jpg,.png,.jpeg" />
+									</div>
+									<div class="col">
+											<label >Passport back side</label>				
+											<input th:field="*{pasaportArka}"  id="fileSelect" type="file" class="form-control" name="foto" accept=".jpg,.png,.jpeg"  />
+											<label >Front of high school diploma*</label>				
+											<input th:field="*{diplomaOn}"  id="fileSelect" type="file" class="form-control" name="foto" accept=".jpg,.png,.jpeg"  required/>
+											<label >Back of high school diploma*</label>				
+											<input th:field="*{diplomaArka}"  id="fileSelect" type="file" class="form-control" name="foto" accept=".jpg,.png,.jpeg" required/>						
+											<label >TR YÖS Result Document</label>				
+											<input th:field="*{trYosSonuc}"  id="fileSelect" type="file" class="form-control" name="foto" accept=".jpg,.png,.jpeg"/>		
+									</div>	
+                                </div>
+                                  <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>           
+                                  <button type="submit"  style="margin-top:10px;">Confirm</button>	                  	                                                                   
+                            </fieldset>
+                                                        
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+	<script th:inline="javascript">
+		    const rakamInput = document.getElementById("rakamInput");		    
+		    rakamInput.addEventListener("input", function() {
+		        this.value = this.value.replace(/[^0-9]/g, ''); // Sadece rakam izin vermek için diğer karakterleri kaldırır
+		    });
+		</script>
+
+		<script th:inline="javascript">
+    const liseort = document.getElementById("liseort");
+
+    liseort.addEventListener("input", function() {
+        // Noktayı virgüle çevir
+        this.value = this.value.replace(/,/g, '.');
+
+        // Birden fazla noktayı engelle
+        const parts = this.value.split('.');
+        if (parts.length > 2) {
+            this.value = parts[0] + '.' + parts.slice(1).join('');
+        }
+
+        // Sadece rakam ve noktayı izin vermek için diğer karakterleri kaldır
+        this.value = this.value.replace(/[^0-9.]/g, '');
+
+        // Nokta sadece bir kez girilecek şekilde düzenle
+        const indexOfDot = this.value.indexOf('.');
+        if (indexOfDot !== -1) {
+            this.value = this.value.slice(0, indexOfDot + 1) + this.value.slice(indexOfDot).replace(/\./g, '');
+        }
+    });
+</script th:inline="javascript">
+
+
+
+
+<script th:inline="javascript">
+    const field4 = document.getElementById("field4");
+    const warningMessage = document.getElementById("warningDogum");
+
+    field4.addEventListener("input", function() {
+        const selectedDate = new Date(this.value);
+        const enteredYear = selectedDate.getFullYear();
+        const maxYear = 2023;
+
+        if (enteredYear > maxYear) {
+            warningMessage.textContent = " 1950 - 2023aralığında olmalı";
+            this.value = "2023-12-31"; // Girişi 2023-12-31'e otomatik olarak ayarla
+        } else {
+            warningMessage.textContent = "";
+        }
+    });
+</script>
+<script th:inline="javascript">
+    const field23 = document.getElementById("field23");
+    const field24 = document.getElementById("field24");
+    const warningLiseBaslangic = document.getElementById("warningLiseBaslangic");
+    const warningLiseBitis = document.getElementById("warningLiseBitis");
+
+    field23.addEventListener("input", function() {
+        const selectedStartDate = new Date(this.value);
+        const selectedEndDate = new Date(field24.value);
+        const enteredYear = selectedStartDate.getFullYear();
+        const maxYear = 2023;
+
+        if (enteredYear > maxYear) {
+            warningLiseBaslangic.textContent = " 1950 - 2023 aralığında olmalı";
+            this.value = "2023-12-31"; // Girişi 2023-12-31'e otomatik olarak ayarla
+        } else if (selectedStartDate > selectedEndDate) {
+            warningLiseBaslangic.textContent = "Başlangıç tarihi bitiş tarihinden önce olmalı";
+            warningLiseBitis.textContent = "Başlangıç tarihi bitiş tarihinden önce olmalı";
+            field24.value = this.value;
+        } else {
+            warningLiseBaslangic.textContent = "";
+            warningLiseBitis.textContent = "";
+        }
+    });
+
+    field24.addEventListener("input", function() {
+        const selectedStartDate = new Date(field23.value);
+        const selectedEndDate = new Date(this.value);
+
+        if (selectedEndDate < selectedStartDate) {
+            warningLiseBitis.textContent = "Bitiş tarihi başlangıç tarihinden sonra olmalı";
+            this.value = field23.value;
+        } else {
+            warningLiseBitis.textContent = "";
+        }
+    });
+</script>
+
+		<script th:inline="javascript">
+    const yospuan = document.getElementById("yospuan");
+
+    yospuan.addEventListener("input", function() {
+        // Noktayı virgüle çevir
+        this.value = this.value.replace(/,/g, '.');
+
+        // Birden fazla noktayı engelle
+        const parts = this.value.split('.');
+        if (parts.length > 2) {
+            this.value = parts[0] + '.' + parts.slice(1).join('');
+        }
+
+        // Sadece rakam ve noktayı izin vermek için diğer karakterleri kaldır
+        this.value = this.value.replace(/[^0-9.]/g, '');
+
+        // Nokta sadece bir kez girilecek şekilde düzenle
+        const indexOfDot = this.value.indexOf('.');
+        if (indexOfDot !== -1) {
+            this.value = this.value.slice(0, indexOfDot + 1) + this.value.slice(indexOfDot).replace(/\./g, '');
+        }
+    });
+</script>
+</body>
+</html>

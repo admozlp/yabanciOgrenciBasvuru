@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hesap Doğrulama</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<style>
+    body {
+        	background-image: linear-gradient(to right, #69c28e, #c8d461);
+    }
+
+    .verification-box {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .verification-icon {
+        font-size: 3rem;
+        color: #4caf50;
+    }
+
+    .error-icon {
+        font-size: 3rem;
+        color: #f44336;
+    }
+
+    .verification-message {
+        margin-top: 15px;
+        font-size: 1.2rem;
+    }
+
+    .btn-custom {
+        margin-top: 20px;
+        padding: 10px 30px;
+        font-size: 1.2rem;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="verification-box mt-5">
+        <div th:if="${#strings.equalsIgnoreCase(param.verify, 'true')}" >
+            <span class="verification-icon">&#10004;</span>
+            <h3>Your account has been verified.</h3>
+            <p class="verification-message">Your account has been successfully verified. You can now log in.</p>
+        </div>
+
+        <div th:if="${#strings.equalsIgnoreCase(param.verify, 'false')}" >
+            <span class="error-icon">&#10008;</span>
+            <h3>Verification Error</h3>
+            <p class="verification-message">An error occurred during the verification process. Please try again later</p>
+        </div>
+
+        <a th:href="@{/login}" class="btn btn-primary btn-custom">Sign in / Giriş</a>
+    </div>
+</div>
+
+</body>
+</html>

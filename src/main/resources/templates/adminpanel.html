@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+	
+body {
+		background-image: linear-gradient(to right, #69c28e, #c8d461);
+}
+.title {
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+.card-block {
+    font-size: 1em;
+    position: relative;
+    margin: 0;
+    padding: 1em;
+    border: none;
+    border-top: 1px solid rgba(34, 36, 38, .1);
+    box-shadow: none;
+     
+}
+.card {
+    font-size: 1em;
+    overflow: hidden;
+    padding: 5;
+    border: none;
+    border-radius: .28571429rem;
+    box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+    margin-top:20px;
+}
+
+.carousel-indicators li {
+    border-radius: 12px;
+    width: 12px;
+    height: 12px;
+    background-color: #404040;
+}
+.carousel-indicators li {
+    border-radius: 12px;
+    width: 12px;
+    height: 12px;
+    background-color: #404040;
+}
+.carousel-indicators .active {
+    background-color: white;
+    max-width: 12px;
+    margin: 0 3px;
+    height: 12px;
+}
+.carousel-control-prev-icon {
+ background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+}
+
+.carousel-control-next-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+}
+
+
+.btn {
+  margin-top: auto;
+}
+				
+</style>
+			<title>Admin Panel</title>
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+			<script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+			<div th:replace="fragments :: ust-menu"></div>	
+
+			<link href="https://nightly.datatables.net/datetime/css/dataTables.dateTime.css" rel="stylesheet" type="text/css" />
+			<script src="https://nightly.datatables.net/datetime/js/dataTables.dateTime.js"></script>
+			<link href="https://cdn.datatables.net/buttons/2.4.0/css/buttons.dataTables.css" rel="stylesheet" type="text/css" />
+			<script src="https://cdn.datatables.net/buttons/2.4.0/js/dataTables.buttons.js"></script>
+			<link href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+			<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>
+			<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+			<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+			<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.11.3/b-2.0.1/b-colvis-2.0.1/b-html5-2.0.1/cr-1.5.4/datatables.min.css"/> 
+			<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.11.3/b-2.0.1/b-colvis-2.0.1/b-html5-2.0.1/cr-1.5.4/datatables.min.js"></script>
+				
+			  <script th:inline="javascript" type="text/javascript">
+			        $(document).ready(function() {
+			            var dataTable = $('#personsTable').DataTable({
+							"fixedHeader": true,
+			                "colReorder": true,
+			                "responsive": true,
+			                "sPaginationType": "full_numbers",
+			                "bLengthChange": true,
+						   'dom': 'Blfrp',
+					       "bProcessing": true,				     
+							pageLength:10,
+			                serverSide: true,
+			                
+			             ajax: {
+			                    url: '/yb/basvurular',
+			                    type: 'GET',
+			                    dataSrc:'',
+			                },    
+			                    buttons: [
+			                    'copy', 'excel', 'pdf', 'print',
+			                    {
+			                        text: 'JSON',
+			                        action: function (e, dt, button, config) {
+			                            var data = dt.buttons.exportData();
+			
+			                            $.fn.dataTable.fileSave(
+			                                new Blob([JSON.stringify(data)]),
+			                                'Export.json'
+			                            );
+			                        }
+			                    }
+			                ],             
+			                columns: [
+								{ data: 'id'  ,  'render': function ( data, type, full, meta ) {
+								      return '<button class="btn btn-success"><a style="color:white; text-decoration:none;" href="/yb/generate-pdf-admin/'+data+'" target="_blank">Pdf indir</a></button>';
+								    }},                    
+			                    { title:'Ad', data: 'ad' },
+			                    { title:'Soyad', data: 'soyad' },                    
+			                    { title:'Cinsiyet', data: 'cinsiyet' },
+			                    { title:'Uyruk', data: 'ulke' },
+			                    { title:'Diploma Notu', data: 'liseNotOrtalamasi' },
+			                    { title:'YÖS', data: 'yosPuani' },
+			                ],   
+			                
+			                paging: true,
+			                lengthMenu: [10, 25, 50, 100],
+			            });
+			            
+			            $('#secilenUlke').on('change', function() {
+				        var selectedUlke = $(this).val();	
+				        var secilen = document.getElementById("secilenProgram");
+  						var selectedProgram = secilen.value;        
+  						var url = '/yb/basvurular?secilenUlke=' + selectedUlke + '&secilenProgram=' + selectedProgram;
+						dataTable.ajax.url(url).load();
+						});
+			            
+			           	$('#secilenProgram').on('change', function() {
+				        var selectedProgram = $(this).val();
+				       	var secilen = document.getElementById("secilenUlke");
+						var selectedUlke = secilen.value;        
+  						var url = '/yb/basvurular?secilenUlke=' + selectedUlke + '&secilenProgram=' + selectedProgram;
+  						dataTable.ajax.url(url).load();
+						});
+			        });
+			    </script>	
+			    
+</head>
+<body>
+	<h1 style="text-align: center; color: white;">BAŞVURULAR</h1>
+	<div class="container">
+				<div class="row" style="margin-bottom: 20px;">
+					<div class="col">
+							<select name="secilenProgram"  id="secilenProgram" class="form-select form-control" >
+									<option selected th:value="${null}">Hepsi</option>							
+									<option  th:each="program : ${tumProgramlar}" th:value="${program.getId()}"  th:text="${program.getIngilizceAd()}" ></option>
+							</select>
+					</div>
+						<div class="col">																	
+								<select name="secilenUlke" id= "secilenUlke"  class="form-select form-control">
+									<option selected th:value="${null}">Hepsi</option>
+									<option  th:each="ulke : ${tumUlkeler}" th:value="${ulke.getId()}"  th:text="${ulke.getIngilizceAd()}" ></option>
+								</select>
+						</div>			
+				</div>	
+		    <table id="personsTable" class="display table table-striped" style="margin:30px; margin-top: 10px; padding-bottom: 10px;"></table>
+		</div>		
+	
+<!--	
+		<div class="container py-3" th:if="${tumBasvurular != null && tumBasvurular.size() > 0}"  >
+
+
+				<div th:if="${applicationavliable}" class="alert alert-danger">
+				Application avaliable!
+		</div>
+		  <div class="title h1 text-center"  style="color:white;">Başvurular</div>
+		  <div class="card" th:each="kisiBasvuru : ${tumBasvurular}" style="max-height:550px;" id="basvurularDiv">
+		    <div class="row " >		
+ 				<div class="col-md-4 d-flex justify-content-center">
+				    <div id="CarouselTest" class="carousel slide" data-ride="carousel">
+				        <div class="carousel-inner">
+							<div class="carousel-item active" th:with="dosyaYol=${kisiBasvuru.getKisiDosya().size() > 0 ?  kisiBasvuru.getKisiDosya().get(0).getDosyaYol() : ''}">
+				                <img class="d-block" style="height:240px; width:350px;" th:src="@{/images/__${dosyaYol}__}" alt="">
+				            </div>
+				        </div>
+				    </div>
+				</div> 
+		      <div class="col-md-6 px-3">
+		        <div class="card-block px-6" >
+		        <h4 class="card-title"  th:text="${kisiBasvuru.getAd()} + ' ' + ${kisiBasvuru.getSoyad()}"></h4>
+				<b class="card-text" th:text="'Cinsiyet: ' + (${kisiBasvuru.isCinsiyet()} ? 'Erkek' : 'Bayan')"></b><br>
+		    	<b th:text="'YÖS Puanı: ' + ${kisiBasvuru.getYosPuani()}"></b><br>
+		    	<b th:text="'Uyruk : ' + ${kisiBasvuru.getUlke().getIngilizceAd()}"></b><br>
+		    	<b th:text="'Lise diploma notu : ' + ${kisiBasvuru.getLiseNotOrtalamasi()}"></b><br>
+		    	<p th:text="${'Başvuru tarihi : ' + kisiBasvuru.getBasvuruTarihi()}"></p>	
+		    	
+		    	<a th:href="@{/generate-pdf-admin/{id}(id=${kisiBasvuru.id})}" target="_blank"  class="mt-auto btn btn-danger">Download app as PDF</a>	          		          
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		-->
+		
+		
+		
+		
+<!--		<script th:inline="javascript">			
+				 $(document).ready(function () {
+					    $("#secilenUlke").change(function () {
+					        var selectedCountryId = $(this).val();
+					        loadBasvurular(selectedCountryId);
+					    });
+
+					    function loadBasvurular(countryId) {
+					        $.ajax({
+					            url: '/getbyulke',
+					            data: {secilenUlke: countryId},
+					            type: 'GET',
+					            success: function (basvurular) {
+					                var basvurularDiv = $("#basvurularDiv"); // Başvuruların gösterileceği HTML elementi
+					                basvurularDiv.empty(); // Önceki içeriği temizle
+					                
+					                for (var i = 0; i < basvurular.length; i++) {
+					                    var basvuru = basvurular[i];
+					                    var html = `
+					                    
+					                        <div class="col-md-6 px-3">
+					        		        <div class="card-block px-6" >
+					        		        <h4 class="card-title"  th:text="${basvuru.getAd()} + ' ' + ${basvuru.getSoyad()}"></h4>
+					        				<b class="card-text" th:text="'Cinsiyet: ' + (${basvuru.isCinsiyet()} ? 'Erkek' : 'Bayan')"></b><br>
+					        		    	<b th:text="'YÖS Puanı: ' + ${basvuru.getYosPuani()}"></b><br>
+					        		    	<b th:text="'Uyruk : ' + ${basvuru.getUlke().getIngilizceAd()}"></b><br>
+					        		    	<b th:text="'Lise diploma notu : ' + ${basvuru.getLiseNotOrtalamasi()}"></b><br>
+					        		    	<p th:text="${'Başvuru tarihi : ' + basvuru.getBasvuruTarihi()}"></p>	
+					        		    	
+					        		    	<a th:href="@{/generate-pdf-admin/{id}(id=${basvuru.id})}" target="_blank"  class="mt-auto btn btn-danger">Download app as PDF</a>	          		          
+					        		        </div>
+					                        </div>
+					                      
+					                    `;
+					                    basvurularDiv.append(html);
+					                }
+					            }
+					        });
+					    }
+					});
+
+		</script>-->
+</body>
+</html>

@@ -1,12 +1,14 @@
 # yabanciOgrenciBasvuru
 ### Yös ile türkiyedeki üniversitelere başvuruan öğrencilerin başvuru aşamasında kullanabileceği uygulama
 
-- Java 1.8
-- Spring data jpa
-- Lombok
-- Thymeleaf
-- Poi
-- Tomcat
+- Java 17
+- Spring Boot 3.2.2
+- Spring Data Jpa
 - Spring mvc
 - PostgreSql
-- Bootstrap
+- Tomcat
+- Poi
+  
+- Lombok
+- Thymeleaf
+- HTML & CSS & JS & Bootstrap
